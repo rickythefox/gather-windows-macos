@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <ApplicationServices/ApplicationServices.h>
 
 void GetDisplays(CGDirectDisplayID *mainDisplayId, CGDirectDisplayID *secondaryDisplayId) {
   *mainDisplayId = CGMainDisplayID();
-  CGDirectDisplayID *onlineDisplays;
+  CGDirectDisplayID onlineDisplays[10];
   uint32_t nOnlineDisplays;
+  
+  *secondaryDisplayId = 0;  // Initialize to 0 in case no secondary display is found
 
   CGDisplayErr err = CGGetOnlineDisplayList(10, onlineDisplays, &nOnlineDisplays);
   if (err != 0) {
